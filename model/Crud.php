@@ -32,8 +32,11 @@ abstract class Crud extends PDO {
     }
 
     public function insert($data){
-        // print_r($data);
+        // print_r($_SESSION['id']); not an array so I could treat one value session at the time and add condition is_array($data) or pass an array as a parameter
         // die();
+        //print_r($data);
+        //die();
+
         // traiter les données non obligatoires qui posent problème (date, birthday, country) si elle ne sont pas saisie dans la requête
         foreach($data as $key => $value){
             if(isset($data[$key]) && ($value=="" || $value=="-1")){
@@ -56,6 +59,7 @@ abstract class Crud extends PDO {
             // die();
             return $this->lastInsertId(); // no id
         }
+       
     }
     
     public function update($data){

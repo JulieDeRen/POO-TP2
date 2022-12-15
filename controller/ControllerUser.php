@@ -11,16 +11,30 @@ class ControllerUser{
     public function index(){
         $user = new ModelUser;
         $select = $user->selectUser();
+        $country = new ModelCountry;
+        $selectCountry = $country->select('countryName'); // passer la variable en param
+        $priviledge = new ModelPriviledge;
+        $selectPriviledge = $priviledge->select('type'); // passer la variable en param
         // print_r($select);
         // die();
         twig::render("user-index.php", ['users' => $select, 
+                                        'priviledges'=> $selectPriviledge,
+                                        'countries' => $selectCountry,
                                         'user_list' => "Liste des utilisateurs"]);
+
     }
 
     public function create(){
-        $privilege = new ModelPriviledge;
-        $selectPriviledge = $privilege->select();
-        twig::render('user-create.php', ['privileges' => $selectPriviledge]);
+        $country = new ModelCountry;
+        $selectCountry = $country->select('countryName'); // passer la variable en param
+        $priviledge = new ModelPriviledge;
+        $selectPriviledge = $priviledge->select('type'); // passer la variable en param
+        // print_r($select);
+        // die();
+        twig::render("user-create.php", ['priviledges'=> $selectPriviledge,
+                                        'countries' => $selectCountry,
+                                        'user_list' => "Liste des utilisateurs"]);
+
     }
     public function store(){
         $validation = new Validation;
@@ -69,6 +83,7 @@ class ControllerUser{
     }
 
     public function login(){
+        
         twig::render('user-login.php');
     }
 
@@ -105,8 +120,10 @@ class ControllerUser{
     public function update(){
         $user = new ModelUser;
         $update = $user ->update($_POST);
+        // die();
         $client = new ModelClient;
-        $update = $client ->updateClient($_POST);
+        $update = $client ->update($_POST);
+        RequirePage::redirectPage('client');
 
         // print_r($_POST);
         // die();

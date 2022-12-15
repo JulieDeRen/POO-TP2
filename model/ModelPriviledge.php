@@ -6,6 +6,8 @@ class ModelPriviledge extends Crud {
     protected $primaryKey = 'id';
 
     protected $fillable = ['id', 'type'];
+
+    
 }
 
 ?>

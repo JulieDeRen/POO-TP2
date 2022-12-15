@@ -1,4 +1,4 @@
-{{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Nouveau client'})}}
+{{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Nouvel utilisateur'})}}
         <span class="error">{{ errors|raw }}</span>
         <form action="{{ path }}client/store" method="post">
             <ul class="form-style-1">
@@ -24,18 +24,14 @@
                     </select>
                 </li>
                 <li>
-                <!--    ** privilège par défaut des clients = 3
-                        ** les employés vont entrer leur no employé à la main
-                        <select name="idPriviledge" class="field-divided">
+                <label for = "addresse">Adresse</label>
+                    <input type="text" name = "addresse" placeholder = "Adresse" class="field-divided">
+                    <select name="idPriviledge" class="field-divided">
                         <option value = "-1">- Choisissez un privilege -</option>
                     {% for priviledge in priviledges %}
                         <option value="{{priviledge.id}}">{{priviledge.type}}</option>
                     {% endfor %}
                     </select>
-                -->
-                    <label for = "addresse">Adresse</label>
-                    <input type="text" name = "addresse" placeholder = "Adresse" class="field-divided">
-                    <input type="number" name = "idEmployee" placeholder = "Numéro d'employé, s'il y a lieu" class="field-divided">
                 </li>
                 <li>
                     <input type="submit" value = "créer">

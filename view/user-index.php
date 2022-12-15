@@ -22,7 +22,7 @@
                             <td><a href="{{ path }}user/show/{{ user.id}}">{{ user.birthday }}</a></td>
                             <td><a href="{{ path }}user/show/{{ user.id}}">{{ user.email }}</a></td>
                             <td><a href="{{ path }}user/show/{{ user.id}}">{{ user.countryName }}</a></td>
-                            <td><a href="{{ path }}user/show/{{ user.id}}">{{ user.priviledge }}</a></td>
+                            <td><a href="{{ path }}user/show/{{ user.id}}">{{ user.type }}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -27,6 +27,13 @@ class ControllerClient{
     }
 
     public function store(){
+        // Vérifier le numéro d'employé, s'il y a lieu
+        if($_POST['idEmployee'] && $_POST['idEmployee'] == $_SESSION['id']){
+            $_POST['idPriviledge']= 2;
+        }
+        else {
+            $_POST['idPriviledge'] = 3; // statue de client
+        }
         $validation = new Validation;
         extract($_POST);
         $validation->name('nom')->value($firstName)->pattern('alpha')->required()->max(45);

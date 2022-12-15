@@ -6,7 +6,7 @@ RequirePage::requireModel('ModelCountry');
 RequirePage::requireModel('ModelCondition');
 RequirePage::requireModel('ModelFormat');
 RequirePage::requireModel('ModelImage');
-//RequirePage::requireModel('ModelBasket');
+RequirePage::requireModel('ModelBasket');
 
 class ControllerStamp{
 
