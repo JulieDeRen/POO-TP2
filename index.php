@@ -65,25 +65,40 @@ if($url == '/'){
         $controllerName = 'Controller'.$requestURL;
         $controller = new $controllerName;
         if(isset($url[1])){
-
                 $method = $url[1];
                 if(isset($url[2])){
+                    if(method_exists($controller, $method)== false){
+                        require_once 'controller/ControllerHome.php'; 
+                        $controller = new ControllerHome;
+                        echo $controller->error();
+                    }
+                    else{
+                        $value = $url[2];
+                        echo $controller->$method($value);
+                    }
+                    // Collecter l'info anyways
                     $_SESSION['url'] = $controllerSession -> getURL();
                     $array_url = array(
                         "url" => $_SESSION['url'],
                         "idSession" => $_SESSION['idSession']
                     );
                     $pageVisited = $modelPageVisited->insertSessionPage($array_url);
-                    $value = $url[2];
-                    echo $controller->$method($value);
                 }else{
+                    if(method_exists($controller, $method)== false){
+                        require_once 'controller/ControllerHome.php'; 
+                        $controller = new ControllerHome;
+                        echo $controller->error();
+                    }
+                    else{
+                        echo $controller->$method();
+                    }
+                    // Collecter l'info anyways
                     $_SESSION['url'] = $controllerSession -> getURL();
                     $array_url = array(
                         "url" => $_SESSION['url'],
                         "idSession" => $_SESSION['idSession']
                     );
                     $pageVisited = $modelPageVisited->insertSessionPage($array_url);
-                    echo $controller->$method();
                 }
                
         }else{
@@ -97,11 +112,18 @@ if($url == '/'){
         }
         
     }else{
+        $_SESSION['url'] = $controllerSession -> getURL();
+        $array_url = array(
+            "url" => $_SESSION['url'],
+            "idSession" => $_SESSION['idSession']
+        );
+        $pageVisited = $modelPageVisited->insertSessionPage($array_url);
         require_once 'controller/ControllerHome.php';
         $controller = new ControllerHome;
         echo $controller->error();
     }
     // session_destroy();
 }
+
 
 ?>
