@@ -1,4 +1,4 @@
-<!-- Le header est différent pas d'images -->
+<!-- *** Le header est différent des autres page donc pas de include *** pas d'images -->
 
 <!DOCTYPE html>
     <html lang="fr">
@@ -11,7 +11,7 @@
     </head>
     <body>
         <nav class="navigation">
-            <div class="logo"><a href="{{ path }}"class="logo"><img src="{{ path }}img/logo.png" alt="logo"></a></div>
+            <div class="logo"><a href="{{ path }}"class="logo"><img src="{{ path }}uploads/logo.png" alt="logo"></a></div>
             <a href="{{ path }}user/index">Registre des clients</a>
             <a href="{{ path }}user/create">Ajouter un client</a>
             <a href="{{ path }}stamp/index">Registre des timbres</a>

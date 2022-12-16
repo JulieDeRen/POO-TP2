@@ -60,7 +60,7 @@ class ControllerUser{
             $errors = $validation->displayErrors();
             $privilege = new ModelPriviledge;
             $selectPriviledge = $privilege->select();
-            twig::render('client-create.php', ['errors' => $errors,
+            twig::render('user-create.php', ['errors' => $errors,
             'privileges' => $selectPriviledge, 'user' => $_POST]);
         }
     }
@@ -83,7 +83,6 @@ class ControllerUser{
     }
 
     public function login(){
-        
         twig::render('user-login.php');
     }
 
@@ -94,13 +93,22 @@ class ControllerUser{
         $validation->name('password')->value($password)->required();
 
         if($validation->isSuccess()){
-
             $user = new ModelUser;
             $checkUser = $user->checkUser($_POST);
+            if($checkUser===true){
+                $pageVisited = new ModelSession;
+                $pageVisited -> updateSession($_SESSION);
+                if($pageVisited){
+                    requirePage::redirectPage('user');
+                }
+            }
+            else{
+                // message d'erreur
+                return "<ul><li>Verifier le mot de passe</li></ul>";  
+            }
+        }
             
-            twig::render('user-login.php', ['errors' => $checkUser, 'user' => $_POST]);
-        
-        }else{
+        else{
             $errors = $validation->displayErrors();
             twig::render('user-login.php', ['errors' => $errors, 'user' => $_POST]);
         }

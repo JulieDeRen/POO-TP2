@@ -7,18 +7,18 @@ class ControllerSession{
     // Source* : https://www.javatpoint.com/how-to-get-the-ip-address-in-php#:~:text=The%20simplest%20way%20to%20collect,is%20currently%20viewing%20the%20webpage.
     public function getIPAddress() {  
         //whether ip is from the share internet  
-         if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
-                    $ip = $_SERVER['HTTP_CLIENT_IP'];  
-            }  
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+            $ip = $_SERVER['HTTP_CLIENT_IP'];  
+        }  
         //whether ip is from the proxy  
         elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
-                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
-         }  
-    //whether ip is from the remote address  
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+        }  
+        //whether ip is from the remote address  
         else{  
-                 $ip = $_SERVER['REMOTE_ADDR'];  
-         }  
-         return $ip;  
+            $ip = $_SERVER['REMOTE_ADDR'];  
+        }  
+        return $ip;  
     }  
 
     // Code édité**
@@ -39,14 +39,14 @@ class ControllerSession{
 
     public function index(){
         $session = new ModelSession;
-        $select = $session->select();
+        $select = $session->selectSession();
+        //print_r($select);
+        //die();
         twig::render("session-index.php", ['sessions' => $select, 
                                         'session_list' => "Liste des sessions"]);
     }
 
     public function store(){
-        //print_r($_SESSION);
-        //die();
         $session = new ModelSession;
         $insert = $session->insertSession($_SESSION);
         // requirePage::redirectPage('session');

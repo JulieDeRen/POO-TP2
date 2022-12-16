@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Modifier'})}}
-    <main>
         <form action="{{ path }}country/update" method="post">
             <ul class="form-style-1">
                 {% for country in countries %}

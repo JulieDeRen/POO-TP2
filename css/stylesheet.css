@@ -162,7 +162,6 @@ input[type="submit"]{
     font-family: inherit;
     font-weight: bold;
     margin-left: 0;
-    width: 80px;
 }
 input[type="submit"]:hover{
     padding: 10px 16px;

@@ -36,7 +36,7 @@ class ControllerCondition{
     // *** ?? A quoi servent $update et $delete ?
     public function update(){
         $condition = new ModelCondition;
-        $update = $condition->update($_POST);
+        $update = $condition->updateCondition($_POST);
         RequirePage::redirectPage('condition');
     }
     public function delete(){

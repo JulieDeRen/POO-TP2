@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Liste de client'})}}
-        <main>
             <section>
                 <table>
                     <thead>
@@ -22,7 +21,7 @@
                             <td><a href="{{ path }}client/show/{{ client.id}}">{{ client.birthday }}</a></td>
                             <td><a href="{{ path }}client/show/{{ client.id}}">{{ client.email }}</a></td>
                             <td><a href="{{ path }}client/show/{{ client.id}}">{{ client.countryName }}</a></td>
-                            <td><a href="{{ path }}client/show/{{ client.id}}">{{ client.idPriviledge }}</a></td>
+                            <td><a href="{{ path }}client/show/{{ client.id}}">{{ client.type }}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

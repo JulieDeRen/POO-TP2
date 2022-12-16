@@ -28,31 +28,36 @@ class ControllerClient{
 
     public function store(){
         // Vérifier le numéro d'employé, s'il y a lieu
-        if($_POST['idEmployee'] && $_POST['idEmployee'] == $_SESSION['id']){
-            $_POST['idPriviledge']= 2;
+        if(isset($_POST['idEmployee']) && isset($_SESSION['idUser'])){
+            if($_POST['idEmployee'] == $_SESSION['idUser']){
+                $_POST['idPriviledge']= $_SESSION['idPriviledge'];
+            }
         }
         else {
             $_POST['idPriviledge'] = 3; // statue de client
         }
         $validation = new Validation;
         extract($_POST);
-        $validation->name('nom')->value($firstName)->pattern('alpha')->required()->max(45);
-        // $validation->name('courriel')->value($email)->pattern('email')->required();
+        $validation->name('prénom')->value($firstName)->pattern('alpha')->required()->max(45);
+        $validation->name('nom de famille')->value($lastName)->pattern('alpha')->required()->max(60);
+        $validation->name('addresse')->value($addresse)->pattern('address')->required();
         $validation->name('mot de passe')->value($password)->max(20)->min(6);
-        $validation->name('privilege')->value($idPriviledge)->pattern('int')->required();
+        // automatique puisque client - $validation->name('privilege')->value($idPriviledge)->pattern('int')->required();
 
         if($validation->isSuccess()){
             $user = new ModelUser;
             $options = [
                 'cost' => 10,
             ];
+            // print_r($_POST);
+            // die();
             $_POST['password']= password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
             $userInsert = $user->insert($_POST);
             // print_r($_POST);
             $client = new ModelClient;
             // passer post et id en paramêtre puisque id client est le id du user
             $clientInsert = $client ->insertClient($_POST, $userInsert); 
-            requirePage::redirectPage('client');
+            requirePage::redirectPage('basket/create');
         }else{
             $errors = $validation->displayErrors();
             $country = new ModelCountry;

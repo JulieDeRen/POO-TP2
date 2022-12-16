@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Liste de timbres'})}}
-        <main>
             <section>
                 <table>
                     <thead>
@@ -17,6 +16,7 @@
                     <tbody>
                         {% for stamp in stamps %}
                         <tr>
+                            {% if admin %}
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.stampName }}</a></td>
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.price }}</a></td>
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.priceEstimation }}</a></td>
@@ -25,6 +25,17 @@
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.countryName }}</a></td>
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.formatName }}</a></td>
                             <td><a href="{{ path }}stamp/show/{{ stamp.id}}">{{ stamp.conditionName }}</a></td>
+                            {% else %}
+                            <td>{{ stamp.stampName }}</td>
+                            <td>{{ stamp.price }}</td>
+                            <td>{{ stamp.priceEstimation }}</td>
+                            <td>{{ stamp.date }}</td>
+                            <td>{{ stamp.description }}</td>
+                            <td>{{ stamp.countryName }}</td>
+                            <td>{{ stamp.formatName }}</td>
+                            <td>{{ stamp.conditionName }}</td>
+                            {% endif %}
+
                         </tr>
                         {% endfor %}
                     </tbody>

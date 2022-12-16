@@ -11,16 +11,14 @@ class ModelUser extends Crud {
     // jointure pour montrer tous les clients incluants ceux qui ont ou pas de pays inscrit
     public function selectUser($champ='id', $order='ASC' ){
         // La requête sql ne fonctionne pas pour la table condition s'il n'y a pas l'échappé
-        $sql = "SELECT `user`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `priviledge`.type, `user`.idPriviledge, `country`.countryName FROM `user` INNER JOIN `client` ON `user`.id = `client`.id LEFT JOIN `priviledge` ON `user`.idPriviledge = `priviledge`.id LEFT JOIN `country` ON `country`.idCountry = `client`.idCountry  ORDER BY $champ $order";
-
-        // "SELECT `user`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `priviledge`.type AS `priviledge`, `user`.idPriviledge FROM `user` LEFT JOIN `client` ON `user`.id = `client`.id LEFT JOIN `priviledge` ON `user`.idPriviledge = `priviledge`.id ORDER BY $champ $order";
+        $sql = "SELECT `user`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `priviledge`.type, `user`.idPriviledge, `country`.countryName FROM `user` JOIN `client` ON `user`.id = `client`.id LEFT JOIN `priviledge` ON `user`.idPriviledge = `priviledge`.id LEFT JOIN `country` ON `country`.idCountry = `client`.idCountry  ORDER BY $champ $order";
 
         $stmt  = $this->query($sql);
         return  $stmt->fetchAll();
     }
 
     public function selectUserId($value){
-        $sql ="SELECT `user`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `priviledge`.type, `user`.idPriviledge FROM `user` LEFT JOIN `client` ON `user`.id = `client`.id LEFT JOIN `priviledge` ON `user`.idPriviledge = `priviledge`.id WHERE `user`.id = $value";
+        $sql ="SELECT `user`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `priviledge`.type, `user`.idPriviledge, `country`.countryName, `country`.idCountry, `client`.idCountry FROM `user` INNER JOIN `client` ON `user`.id = `client`.id LEFT JOIN `priviledge` ON `user`.idPriviledge = `priviledge`.id LEFT JOIN `country` ON `country`.idCountry = `client`.idCountry WHERE `user`.id = $value";
 
         $stmt = $this->prepare($sql);
         $stmt->bindValue(":$this->primaryKey", $value);
@@ -44,22 +42,26 @@ class ModelUser extends Crud {
         $count = $stmt->rowCount();
         if($count == 1){
             $user_info = $stmt->fetch();
+            // print_r($user_info);
+            // die();
             if(password_verify($password, $user_info['password'])){
                     
                 session_regenerate_id();
                 $_SESSION['idUser'] = $user_info['id'];
-                $_SESSION['idPrivilege'] = $user_info['idPrivilege']; // ** Modifié variable $_SESSION
+                $_SESSION['idPriviledge'] = $user_info['idPriviledge']; // ** Modifié variable $_SESSION
                 $_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']);
-                
+                /*print_r($_SESSION);
+                die();
                 requirePage::redirectPage('user');
+                */
+                return true;
                 
-            }else{
-               return "<ul><li>Verifier le mot de passe</li></ul>";  
             }
-        }else{
-            return "<ul><li>Le non d'utilisateur n'exist pas</li></ul>";
-        }
-    } 
+            else{
+                return "<ul><li>Le non d'utilisateur n'exist pas</li></ul>";
+            }
+        } 
+    }
         
     public function updateUser($data){
         // traiter les données non obligatoires qui posent problème si elle ne sont pas saisie dans la requête
@@ -68,8 +70,6 @@ class ModelUser extends Crud {
                 unset($data[$key]);
             }
         }
-        // print_r($data);
-        // die();
         $champRequete = null;
         foreach($data as $key=>$value){
             $champRequete .= "$key = :$key, ";

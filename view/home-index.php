@@ -1,8 +1,7 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Bienvenue'})}}
-        <main>
             <!--<h2>{{greetings}}</h2>-->
             <div class="accueil">
-                <img src="{{ path }}img/climbing.jpg" alt="climbing">
+                <img src="{{ path }}uploads/climbing.jpg" alt="climbing">
             </div>
         </main>
         <footer>

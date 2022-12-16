@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Liste de privilège'})}}
-    <main>
         <table>
             <thead>
                 <tr>

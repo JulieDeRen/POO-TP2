@@ -37,7 +37,7 @@ class ModelClient extends Crud {
     // jointure pour montrer tous les clients incluants ceux qui ont ou pas de pays inscrit
     public function selectClient($champ='id', $order='ASC' ){
         // La requête sql ne fonctionne pas pour la table condition s'il n'y a pas l'échappé
-        $sql = "SELECT `client`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.lastName,  `user`.email, `country`.countryName,`user`.idPriviledge FROM `client` RIGHT JOIN `user` ON `client`.id = `user`.id LEFT JOIN `country` ON `client`.idCountry = `country`.idCountry ORDER BY $champ $order"; 
+        $sql = "SELECT `client`.id, `user`.lastName, `user`.firstName,  `client`.addresse, `user`.birthday, `user`.email, `country`.countryName,`user`.idPriviledge, `priviledge`.type FROM `client` RIGHT JOIN `user` ON `client`.id = `user`.id LEFT JOIN `country` ON `client`.idCountry = `country`.idCountry INNER JOIN `priviledge` WHERE `user`.idPriviledge = 3 ORDER BY $champ $order"; 
 
         $stmt  = $this->query($sql);
         return  $stmt->fetchAll();

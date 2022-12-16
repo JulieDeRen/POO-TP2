@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Liste des formats'})}}
-    <main>
         <table>
             <thead>
                 <tr>
@@ -9,10 +8,17 @@
             </thead>
             <tbody>
                 {% for format in formats %}
+                    {% if admin %}
                         <tr>
                             <td><a href="{{ path }}format/show/{{ format.id}}">{{ format.name }}</a></td>
                             <td><a href="{{ path }}format/show/{{ format.id}}">{{ format.description }}</a></td>
                         </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ format.name }}</td>
+                            <td>{{ format.description }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 
             </tbody>

@@ -1,5 +1,5 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Nouveau timbre'})}}
-        <form action="{{ path }}stamp/store" method="post">
+        <form action="{{ path }}stamp/store" method="post" enctype="multipart/form-data">
             <ul class="form-style-1">
                 <li>
                     <label for = "name">Nom du timbre<span class="required">*</span></label>
@@ -48,11 +48,11 @@
                     </select>
                 </li>
                 <li>
-                    <label for = "imgPath">Image</label>
-                    <input type="file" name = "imgPath" class="field-long">
+                    <label for = "fileToUpload">Image</label>
+                    <input type="file" name="fileToUpload" id="fileToUpload" class="field-divided">
                 </li>
                 <li>
-                    <input type="submit" value = "save">
+                    <input type="submit" value = "enregistrer">
                 </li>
             </ul> 
         </form>

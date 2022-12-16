@@ -1,16 +1,18 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Login'})}}
-<body>
-    <main>
-        <h2>Connecter</h2>
-        <span class="error">{{ errors|raw }}</span>
         <form action="{{ path }}user/auth" method="post">
-            <label>Courriel
-                <input type="email" name="email" value="{{ user.email }}">
-            </label>
-            <label>Mot de passe
-                <input type="password" name="password">
-            </label>
-            <input type="submit" value="Connecter">
+            <ul class="form-style-1">
+                <li>
+                    <label for = "email">Courriel<span class="required">*</span></label>
+                    <input type="email" name = "email" value="{{ user.email }}" placeholder="Courriel*" class="field-long">
+                </li>
+                <li>
+                    <label for = "password">Mot de passe<span class="required">*</span></label>
+                    <input type="password" name = "password" placeholder="Mot de passe*" class="field-long">
+                </li>
+                <li>
+                    <input type="submit" value="Connecter">
+                </li>
+            </ul>
         </form>
     </main>
 </body>

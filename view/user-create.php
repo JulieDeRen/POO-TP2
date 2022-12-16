@@ -1,6 +1,5 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Nouvel utilisateur'})}}
-        <span class="error">{{ errors|raw }}</span>
-        <form action="{{ path }}client/store" method="post">
+        <form action="{{ path }}user/store" method="post">
             <ul class="form-style-1">
                 <li>
                     <label for = "lastName">Nom complet<span class="required">*</span></label>

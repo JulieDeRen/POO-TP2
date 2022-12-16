@@ -1,8 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Modifier'})}}
-    <main>
-        {% if errors is defined %}
-            <span class="error">{{ errors | raw}}</span>
-        {% endif %}
         <form action="{{ path }}user/update" method="post">
             <ul class="form-style-1">
                 {% for user in users %}
@@ -22,12 +18,12 @@
                 <li>
                     <label for = "birthday">Anniversaire</label>
                     <input type="date" name = "birthday" value="{{user.birthday}}" class="field-divided">
-                    {% endfor %}
+                {% endfor %}
                     
                     <select name="idPriviledge" class="field-divided">
                         <option value = "-1">- Choisissez un privilege -</option>
                         <!--Ajout d'une condition sélected -->
-                    {% for priviledge in priviledges %}
+                {% for priviledge in priviledges %}
                         {% set selected = '' %}
                         {% for user in users %}
                             {% if (priviledge.id) == (user.idPriviledge) %}
@@ -35,20 +31,22 @@
                             {% endif %}
                         {% endfor %}
                         <option value="{{priviledge.id}}" {{selected}}>{{priviledge.type}}</option>
-                    {% endfor %}
+                {% endfor %}
                     </select>
                 </li>
                 <li>
+                {% for user in users %}
                     <label for="addresse">Adresse</label>
-                    <input type="text" name = "addresse" value="{{client.addresse}}" class="field-divided"> 
+                    <input type="text" name = "addresse" value="{{user.addresse}}" class="field-divided"> 
+                {% endfor %}
                     <select name="idCountry" class="field-divided">
                         <option value = "-1">- Choisissez un pays -</option>
 
                 {% for country in countries %}
                     {% set selected = '' %}
-                        {% for client in clients %}
-                            {% if (country.idCountry) == (client.idCountry) %}
-                                {% set selected = 'selected' %}
+                        {% for user in users %}
+                            {% if (country.idCountry) == (user.idCountry) %}
+                                    {% set selected = 'selected' %}
                             {% endif %}
                         {% endfor %}
                         <option value="{{country.idCountry}}" {{selected}}>{{country.countryName}}</option>

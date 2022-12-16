@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Ajout format'})}}
-    <main>
         <form action="{{ path }}format/store" method = "post">
             <ul class="form-style-1">
                 <li>

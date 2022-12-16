@@ -3,8 +3,7 @@ RequirePage::requireModel('Crud');
 RequirePage::requireModel('ModelStamp');
 RequirePage::requireModel('ModelClient');
 RequirePage::requireModel('ModelBasket');
-//RequirePage::requireModel('ModelImage');
-//RequirePage::requireModel('ModelBasket');
+RequirePage::requireModel('ModelImage');
 
 class ControllerBasket{
 
@@ -18,11 +17,8 @@ class ControllerBasket{
     public function create(){
        $stamp = new ModelStamp;
        $selectStamp = $stamp->selectStamp(); // pour chaque boucle, il faut l'associer
-       $client = new ModelClient;
-       $selectClient = $client->select();
        twig::render('basket-create.php', [
-                                        'stamps' => $selectStamp, 
-                                        'clients' => $selectClient
+                                        'stamps' => $selectStamp
                                         ]);
     }
 

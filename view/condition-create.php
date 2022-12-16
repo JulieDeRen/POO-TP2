@@ -1,5 +1,4 @@
 {{ include('header.php', {title: 'Vente de timbres', pageHeader: 'Ajout condition'})}}
-    <main>
         <form action="{{ path }}condition/store" method = "post">
             <ul class="form-style-1">
                 <li>
