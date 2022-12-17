@@ -34,6 +34,7 @@ abstract class Crud extends PDO {
     public function insert($data){
         // print_r($_SESSION['id']); not an array so I could treat one value session at the time and add condition is_array($data) or pass an array as a parameter
         // die();
+
         //print_r($data);
         //die();
 

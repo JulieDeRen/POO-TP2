@@ -40,7 +40,7 @@ class ControllerClient{
         extract($_POST);
         $validation->name('prénom')->value($firstName)->pattern('alpha')->required()->max(45);
         $validation->name('nom de famille')->value($lastName)->pattern('alpha')->required()->max(60);
-        $validation->name('addresse')->value($addresse)->pattern('address')->required();
+        // pas requis dans le modèle pour client au check out ;) $validation->name('addresse')->value($addresse)->pattern('address')->required();
         $validation->name('mot de passe')->value($password)->max(20)->min(6);
         // automatique puisque client - $validation->name('privilege')->value($idPriviledge)->pattern('int')->required();
 

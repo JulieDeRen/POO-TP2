@@ -16,6 +16,9 @@
             <a href="{{ path }}stamp/index">Registre des timbres</a>
             <a href="{{ path }}user/index">Registre des utilisateurs</a>
             <a href="{{ path }}session">Registre des sessions</a>
+                {% if basket %}
+                    <a href="{{path}}basket">Panier</a>
+                {% endif %}
                 {% if guest %}
                     <a href="{{path}}user/login">Login</a>
                 {% else %}

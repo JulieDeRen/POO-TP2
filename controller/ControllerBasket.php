@@ -8,24 +8,51 @@ RequirePage::requireModel('ModelImage');
 class ControllerBasket{
 
     public function index(){
+        $total=0; // initialiser total
         $basket = new ModelBasket;
-        $select = $basket->select();
-        twig::render("basket-index.php", ['baskets' => $select, 
-                                        'basket_list' => "Liste des paniers"]);
+        if(isset($_SESSION['idUser'])){
+            $select = $basket->selectBasket($_SESSION['idUser']);
+            // print_r($select);
+            foreach($select as $key=>$value){
+                if($key == 'price'){
+                    $total += $value['price'];
+                }
+            }
+            // print_r($total);
+
+            // print_r($total);
+            twig::render("basket-index.php", ['baskets' => $select, 
+                                                'total' => $total,
+                                                'basket_list' => "Liste des paniers"]);
+        }
+        else{ // renvoyer sur le catalogue
+            $basket = new ModelStamp;
+            $select = $basket->selectStamp(); // pour chaque boucle, il faut l'associer
+            twig::render('basket-create.php', [
+                                             'baskets' => $select,
+                                             ]);
+        }
     }
 
     public function create(){
-       $stamp = new ModelStamp;
-       $selectStamp = $stamp->selectStamp(); // pour chaque boucle, il faut l'associer
+       $basket = new ModelStamp;
+       $select = $basket->selectStamp(); // pour chaque boucle, il faut l'associer
        twig::render('basket-create.php', [
-                                        'stamps' => $selectStamp
+                                        'baskets' => $select
                                         ]);
     }
 
    public function store(){
+        $_POST['idClient'] = $_SESSION['idUser'];
+        $_POST['idStamp'] = $_POST['id']; // id du timbre
+        $_POST['datePutInBasket'] = $_SESSION['date'];
+        unset($_POST['id']); // sert à rien
         $basket = new ModelBasket;
-        $insert = $basket->insert($_POST);
-        requirePage::redirectPage('basket');
+        $insert = $basket->insertBasket($_POST);
+        if($insert == true){
+            $_SESSION['basket'] = true;
+            requirePage::redirectPage('basket/create');
+        }
     }
 
     public function show($id){
@@ -41,16 +68,13 @@ class ControllerBasket{
                                         'stamps' => $selectStamp
                                         ]);
     }
-
-    public function update(){
-        $basket = new ModelBasket;
-        $update = $basket ->update($_POST);
-        RequirePage::redirectPage('basket');
-    }
     public function delete(){
+        // print_r($_POST['idStamp']);
+        // print_r($_SESSION['idUser']);
+        // die();
         $basket = new ModelBasket;
-        $delete = $basket->delete($_POST['id']);
-        RequirePage::redirectPage('basket');
+        $delete = $basket->deleteBasket($_POST['idStamp'], $_SESSION['idUser']);
+        RequirePage::redirectPage('basket/create');
     }
 }
 ?>

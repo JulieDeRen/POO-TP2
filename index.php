@@ -20,6 +20,8 @@ $controllerSession = new ControllerSession; // initialiser l'objet à l'extérie
 $modelSession = new ModelSession;
 $modelPageVisited = new ModelPageVisited;
 
+// print_r($_SESSION);
+// die();
 if(!isset($_SESSION['id'])){
     $_SESSION['id']=session_id(); // cette valeur est unique
     $addresseIP = $controllerSession -> getIPAddress(); // assigner la fonction
